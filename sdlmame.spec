@@ -19,6 +19,7 @@ Source2:	sdlmame-extra.tar.bz2
 %endif
 
 BuildRequires:	SDL-devel
+BuildRequires:	SDL_ttf-devel
 BuildRequires:	expat-devel
 BuildRequires:	zlib-devel
 BuildRequires:	libxinerama-devel
