@@ -50,7 +50,7 @@ find . -type f -not -name uismall.png | xargs perl -pi -e 's/\r\n?/\n/g'
 #apply u1, u2, etc... patches (if any)
 #fix line endings for mdv < 2010.1
 %if %{uversion}
-%(for ((i=1 ; i<=%{uversion} ; i++)) ; do echo "unzip -qq %{_sourcedir}/%{sversion}u${i}_diff.zip" ; echo "perl -pi -e 's/\r\n/\n/g' %{sversion}u${i}.diff" ; echo "patch -p0 -s --fuzz=0 -E < %{sversion}u${i}.diff" ; done)
+%(for ((i=1 ; i<=%{uversion} ; i++)) ; do echo "unzip -qq %{SOURCE$((9+i))}" ; echo "perl -pi -e 's/\r\n/\n/g' %{sversion}u${i}.diff" ; echo "patch -p0 -s --fuzz=0 -E < %{sversion}u${i}.diff" ; done)
 %endif
 
 %build
