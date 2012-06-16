@@ -49,7 +49,7 @@ unzip -qq mame.zip
 %if %{mdvver} < 201100
 %ifarch x86_64
 %patch0 -p1
-%patch1 -p0
+%patch1 -p1
 %endif
 %endif
 
