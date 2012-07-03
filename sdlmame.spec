@@ -1,8 +1,8 @@
 Name:			sdlmame
-Version:		0.146
+Version:		0.146u2
 %define sversion	%(sed -r -e "s/\\.//" -e "s/(.*)u(.)/\\1/" <<<%{version})
 %define uversion	%(sed -r -e "s/(.*u)(.)/\\2/;t;c\\0" <<<%{version})
-Release:		%mkrel 1.1
+Release:		%mkrel 0.1
 
 Summary:	SDL MAME is an arcade emulator
 License:	Freeware
@@ -20,7 +20,6 @@ Source2:	sdlmame-extra.tar.bz2
 
 # Needed to workaround gcc 4.4.x x86_64 internal compiler error
 Patch0:		sdlmame-0.146-gcc4.4-ice.patch
-Patch1:		0146u1.patch
 
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_ttf-devel
@@ -49,7 +48,6 @@ unzip -qq mame.zip
 %if %{mdvver} < 201100
 %ifarch x86_64
 %patch0 -p1
-%patch1 -p1
 %endif
 %endif
 
