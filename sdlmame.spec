@@ -111,7 +111,7 @@ find . -type f -not -name uismall.png | xargs perl -pi -e 's/\r\n?/\n/g'
 
 %files
 %defattr(-,root,root)
-%doc whatsnew*.txt docs/*
+%doc docs/*
 %attr(0755,root,games) %{_gamesbindir}/sdlmame*
 %attr(0755,root,games) %{_gamesbindir}/*-sdlmame
 %{_gamesdatadir}/sdlmame
