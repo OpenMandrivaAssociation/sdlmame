@@ -1,4 +1,5 @@
+---
 sources:
-  "mame0147s.zip:"	023a5841389ae8d41db21704cffdeedb258591e9
-  "sdlmame-extra.tar.bz2:"	9a99240a2eaf6a0d1147a77fcb484d12076e6ba9
-  "sdlmame-wrapper:"	1f44a1b379de727772a55198346daa7d53deb339
+  sdlmame-extra.tar.bz2: 9a99240a2eaf6a0d1147a77fcb484d12076e6ba9
+  sdlmess-extra-0.147.tar.bz2: a261aecc7f8b16541fa747f8612e774fcfd140ab
+  mame0148s.zip: 4c0d2bc139c9e518dcf629e3c3d0f32977745298

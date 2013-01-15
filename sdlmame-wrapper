@@ -1,0 +1,83 @@
+#!/bin/sh
+# Very simple wrapper for sdlmame.
+SDLMAME_HOME=$HOME/.sdlmame
+SDLMAME_DATA=/usr/share/games/sdlmame
+SDLMAME_BIN=sdlmame.real
+CHEAT_FILE=cheat.zip
+FONT_FILE=ui.bdf
+CATVER_FILE=catver.ini
+CONTROLS_FILE=controls.ini
+NPLAYERS_FILE=nplayers.ini
+HISTORY_FILE=history.dat
+MAMEINFO_FILE=mameinfo.dat
+
+# create a place to holds cfg and other files and directories
+if [ ! -d $SDLMAME_HOME ]; then
+ mkdir $SDLMAME_HOME;
+fi;
+if [ -d $SDLMAME_HOME ]; then
+ cd $SDLMAME_HOME;
+else
+ echo Some error occured when trying to reach $SDLMAME_HOME;
+ exit;
+fi;
+if [ ! -x `which $SDLMAME_BIN` ]; then
+ echo Could not find sdlmame binary;
+ exit;
+fi;
+
+# link to the installed cheats
+if [ ! -e $SDLMAME_HOME/$CHEAT_FILE ]; then
+ ln -s $SDLMAME_DATA/$CHEAT_FILE $CHEAT_FILE;
+fi;
+
+# link to the bdf font
+if [ ! -e $SDLMAME_HOME/$FONT_FILE ]; then
+ ln -s $SDLMAME_DATA/$FONT_FILE $FONT_FILE;
+fi;
+
+# catver, controls, nplayers, history and mameinfo are only used by the front-ends,
+# but it's handy to have them at the same place.
+
+# link to user language catver.ini if it exists
+UL=`echo $LANG | cut -d_ -f1`
+if [ ! -e $SDLMAME_HOME/$CATVER_FILE ]; then
+ if [ -e $SDLMAME_DATA/catver-$UL.ini ]; then
+  ln -s $SDLMAME_DATA/catver-$UL.ini $CATVER_FILE;
+ else
+  ln -s $SDLMAME_DATA/$CATVER_FILE $CATVER_FILE;
+ fi;
+fi;
+
+# controls
+if [ ! -e $SDLMAME_HOME/$CONTROLS_FILE ]; then
+ ln -s $SDLMAME_DATA/$CONTROLS_FILE $CONTROLS_FILE;
+fi;
+
+# link to user language nplayers.ini if it exists
+if [ ! -e $SDLMAME_HOME/$NPLAYERS_FILE ]; then
+ if [ -e $SDLMAME_DATA/nplayers-$UL.ini ]; then
+  ln -s $SDLMAME_DATA/nplayers-$UL.ini $NPLAYERS_FILE;
+ else
+  ln -s $SDLMAME_DATA/$CATVER_FILE $CATVER_FILE;
+ fi;
+fi;
+
+# history
+if [ ! -e $SDLMAME_HOME/$HISTORY_FILE ]; then
+ ln -s $SDLMAME_DATA/$HISTORY_FILE $HISTORY_FILE;
+fi;
+
+# mameinfo
+if [ ! -e $SDLMAME_HOME/$MAMEINFO_FILE ]; then
+ ln -s $SDLMAME_DATA/$MAMEINFO_FILE $MAMEINFO_FILE;
+fi;
+
+# use a locale keymap if it exists
+KEYMAP_FILE=$SDLMAME_DATA/keymaps/km-$UL.txt
+if [ -f $KEYMAP_FILE ]; then
+ KEYMAP="-keymap -keymap_file $KEYMAP_FILE";
+fi;
+
+$SDLMAME_BIN $KEYMAP $@
+

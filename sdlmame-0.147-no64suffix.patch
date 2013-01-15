@@ -1,0 +1,15 @@
+diff -urN sdlmame-0.147/makefile sdlmame-0.147-patched/makefile
+--- sdlmame-0.147/makefile	2012-09-08 15:58:12.000000000 +1100
++++ sdlmame-0.147-patched/makefile	2012-10-25 18:06:32.387478039 +1100
+@@ -333,11 +333,6 @@
+ endif
+ endif
+ 
+-# 64-bit builds get a '64' suffix
+-ifeq ($(PTR64),1)
+-SUFFIX64 = 64
+-endif
+-
+ # debug builds just get the 'd' suffix and nothing more
+ ifdef DEBUG
+ SUFFIXDEBUG = d
