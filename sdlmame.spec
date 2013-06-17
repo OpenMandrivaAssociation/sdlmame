@@ -3,16 +3,14 @@
 %define _enable_debug_packages %{nil}
 %define debug_package %{nil}
 
+Summary:	SDL MAME is an arcade emulator
 Name:		sdlmame
-Version:	0.148
+Version:	0.149
 Release:	1
 %define sversion	%(sed -r -e "s/\\.//" -e "s/(.*)u(.)/\\1/" <<<%{version})
-%define uversion	%(sed -r -e "s/(.*u)(.)/\\2/;t;c\\0" <<<%{version})
-
-Summary:	SDL MAME is an arcade emulator
 License:	Freeware
 Group:		Emulators
-URL:		http://mamedev.org/
+Url:		http://mamedev.org/
 #http://mamedev.org/downloader.php?&file=mame%{sversion}s.zip
 Source0:	mame%{sversion}s.zip
 Source1:	sdlmame-wrapper
@@ -26,11 +24,6 @@ Patch0:		mame-verbosebuild.patch
 Patch1:		sdlmame-0.148-dont-force-inline.patch
 # We don't want 64 bit binaries to have extra suffix
 Patch2:		sdlmame-0.147-no64suffix.patch
-
-#Sources 10+ : u1, u2 etc zip files containing changelogs and patches (if any)
-%if %{uversion}
-%(for ((i=1 ; i<=%{uversion} ; i++)) ; do echo Source$((9+i)):	http://mamedev.org/updates/%{sversion}u${i}_diff.zip ;done)
-%endif
 
 BuildRequires:	SDL_ttf-devel
 BuildRequires:	expat-devel
@@ -77,17 +70,9 @@ unzip -qq mame.zip
 %patch2 -p1
 
 #files missing : ui.bdf, keymaps
-tar xvjf %{SOURCE3}
+tar xf %{SOURCE3}
 #files missing : arkwork, sysinfo.dat
-tar xvjf %{SOURCE4}
-#fixes doc line endings, + needed before patching
-find . -type f -not -name uismall.png | xargs perl -pi -e 's/\r\n?/\n/g'
-
-#apply u1, u2, etc... patches (if any)
-#fix line endings for mdv < 2010.1
-%if %{uversion}
-%(for ((i=1 ; i<=%{uversion} ; i++)) ; do echo "unzip -qq %{SOURCE$((9+i))}" ; echo "perl -pi -e 's/\r\n/\n/g' %{sversion}u${i}.diff" ; echo "patch -p0 -s --fuzz=0 -E < %{sversion}u${i}.diff" ; done)
-%endif
+tar xf %{SOURCE4}
 
 %build
 #notes:
