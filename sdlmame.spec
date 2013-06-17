@@ -89,6 +89,7 @@ tar xf %{SOURCE4}
  NOWERROR=1 \
  BUILD_ZLIB= \
  BUILD_EXPAT= \
+ NO_USE_QTDEBUG=1 \
  OPT_FLAGS="%{optflags}"
 
 %make all TARGET=mess \
@@ -96,10 +97,10 @@ tar xf %{SOURCE4}
  NOWERROR=1 \
  BUILD_ZLIB= \
  BUILD_EXPAT= \
+ NO_USE_QTDEBUG=1 \
  OPT_FLAGS="%{optflags}"
 
 %install
-rm -rf %{buildroot}
 install -d -m 755 %{buildroot}%{_gamesbindir}
 install -m 755 sdlmame %{buildroot}/%{_gamesbindir}/sdlmame.real
 install -m 755 sdlmess* %{buildroot}/%{_gamesbindir}/sdlmess.real
