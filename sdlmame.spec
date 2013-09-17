@@ -5,14 +5,13 @@
 
 Summary:	SDL MAME is an arcade emulator
 Name:		sdlmame
-Version:	0.149
+Version:	0.150
 Release:	1
-%define sversion	%(sed -r -e "s/\\.//" -e "s/(.*)u(.)/\\1/" <<<%{version})
 License:	Freeware
 Group:		Emulators
 Url:		http://mamedev.org/
-#http://mamedev.org/downloader.php?&file=mame%{sversion}s.zip
-Source0:	mame%{sversion}s.zip
+#http://mamedev.org/downloader.php?&file=mame%{version}s.zip
+Source0:	mame%{version}s.zip
 Source1:	sdlmame-wrapper
 Source2:	sdlmess-wrapper
 Source3:	sdlmame-extra.tar.bz2
@@ -21,7 +20,7 @@ Source4:	sdlmess-extra-0.147.tar.bz2
 
 Patch0:		mame-verbosebuild.patch
 # x86_64 build fails due to extra optimizations
-Patch1:		sdlmame-0.148-dont-force-inline.patch
+Patch1:		sdlmame-0.150-dont-force-inline.patch
 # We don't want 64 bit binaries to have extra suffix
 Patch2:		sdlmame-0.147-no64suffix.patch
 

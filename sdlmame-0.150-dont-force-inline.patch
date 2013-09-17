@@ -1,12 +1,12 @@
-diff -urN sdlmame-0.148/src/osd/osdcomm.h sdlmame-0.148-patched/src/osd/osdcomm.h
---- sdlmame-0.148/src/osd/osdcomm.h	2013-01-11 08:32:48.000000000 +1100
-+++ sdlmame-0.148-patched/src/osd/osdcomm.h	2013-01-14 01:50:42.296179734 +1100
-@@ -66,7 +66,7 @@
+diff -urN sdlmame-0.150/src/osd/osdcomm.h sdlmame-0.150-patched/src/osd/osdcomm.h
+--- sdlmame-0.150/src/osd/osdcomm.h	2013-09-17 08:47:04.000000000 +1100
++++ sdlmame-0.150-patched/src/osd/osdcomm.h	2013-09-17 23:50:39.302016809 +1100
+@@ -65,7 +65,7 @@
  #define ATTR_MALLOC             __attribute__((malloc))
  #define ATTR_PURE               __attribute__((pure))
  #define ATTR_CONST              __attribute__((const))
 -#define ATTR_FORCE_INLINE       __attribute__((always_inline))
 +#define ATTR_FORCE_INLINE
  #define ATTR_NONNULL(...)       __attribute__((nonnull(__VA_ARGS__)))
+ #define ATTR_DEPRECATED         __attribute__((deprecated))
  /* not supported in GCC prior to 4.4.x */
- #if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 4)) || (__GNUC__ > 4)
