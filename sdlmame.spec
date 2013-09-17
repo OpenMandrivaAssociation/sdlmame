@@ -25,23 +25,23 @@ Patch1:		sdlmame-0.150-dont-force-inline.patch
 # We don't want 64 bit binaries to have extra suffix
 Patch2:		sdlmame-0.147-no64suffix.patch
 
-BuildRequires:	SDL_ttf-devel
-BuildRequires:	expat-devel
-BuildRequires:	zlib-devel
+BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(cairo)
+BuildRequires:	pkgconfig(expat)
+BuildRequires:	pkgconfig(fontconfig)
+BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(gconf-2.0)
-BuildRequires:	pkgconfig(fontconfig)
-BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(pango)
 BuildRequires:	pkgconfig(pangocairo)
 BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(SDL_ttf)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xrender)
-BuildRequires:	perl
+BuildRequires:	pkgconfig(zlib)
 ExclusiveArch:	%{ix86} x86_64 ppc
 
 %description
