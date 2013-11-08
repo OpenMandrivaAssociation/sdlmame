@@ -24,6 +24,8 @@ Patch0:		sdlmame-0.151-verbose-build.patch
 Patch1:		sdlmame-0.150-dont-force-inline.patch
 # We don't want 64 bit binaries to have extra suffix
 Patch2:		sdlmame-0.147-no64suffix.patch
+# Some old debug files are missing in sources, don't try to build them
+Patch3:		sdlmame-0.151-debug.patch
 
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(cairo)
@@ -86,6 +88,7 @@ unzip -qq mame.zip
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 #files missing : ui.bdf, keymaps
 tar xf %{SOURCE3}
@@ -108,6 +111,7 @@ tar xf %{SOURCE4}
  BUILD_ZLIB= \
  BUILD_EXPAT= \
  NO_USE_QTDEBUG=1 \
+ NO_DEBUGGER=1 \
  OPT_FLAGS="%{optflags}"
 
 %make all TARGET=mess \
@@ -116,6 +120,7 @@ tar xf %{SOURCE4}
  BUILD_ZLIB= \
  BUILD_EXPAT= \
  NO_USE_QTDEBUG=1 \
+ NO_DEBUGGER=1 \
  OPT_FLAGS="%{optflags}"
 
 %install
