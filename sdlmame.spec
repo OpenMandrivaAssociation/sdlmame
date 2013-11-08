@@ -5,7 +5,7 @@
 
 Summary:	SDL MAME is an arcade emulator
 Name:		sdlmame
-Version:	0.150
+Version:	0.151
 Release:	1
 %define sversion	%(sed -r -e "s/\\.//" -e "s/(.*)u(.)/\\1/" <<<%{version})
 License:	Freeware
@@ -19,7 +19,7 @@ Source3:	sdlmame-extra.tar.bz2
 # Repack from git and 0.146 as these files are no longer in sources zip
 Source4:	sdlmess-extra-0.147.tar.bz2
 
-Patch0:		mame-verbosebuild.patch
+Patch0:		sdlmame-0.151-verbose-build.patch
 # x86_64 build fails due to extra optimizations
 Patch1:		sdlmame-0.150-dont-force-inline.patch
 # We don't want 64 bit binaries to have extra suffix
@@ -53,6 +53,15 @@ You can find a some freeware and their description on http://mamedev.org/roms/
 If you some tricks to finish a game, the cheat.zip file is now provided in a
 other package named sdlmame-extra-data.
 
+%files
+%defattr(0644,root,games,0755)
+%doc docs/*
+%attr(0755,root,games) %{_gamesbindir}/sdlmame*
+%attr(0755,root,games) %{_gamesbindir}/*-sdlmame
+%{_gamesdatadir}/sdlmame
+
+#----------------------------------------------------------------------------
+
 %package -n sdlmess
 Summary:	SDL MESS emulates a large variety of different systems
 Group:		Emulators
@@ -61,6 +70,15 @@ Group:		Emulators
 SDL MESS is a free emulator which emulates a large variety of different
 systems (computers and home entertainment systems).
 It uses SDL, and is based on MESS.
+
+%files -n sdlmess
+%defattr(0644,root,games,0755)
+%doc docs/*
+%attr(0755,root,games) %{_gamesbindir}/sdlmess*
+%attr(0755,root,games) %{_gamesbindir}/*-sdlmess
+%{_gamesdatadir}/sdlmess
+
+#----------------------------------------------------------------------------
 
 %prep
 %setup -c -n %{name}-%{version} -q
@@ -146,18 +164,4 @@ install -m 644 sysinfo.dat %{buildroot}%{_gamesdatadir}/sdlmess/
 #install wrapper
 install -m 755 %{SOURCE1} %{buildroot}%{_gamesbindir}/sdlmame
 install -m 755 %{SOURCE2} %{buildroot}%{_gamesbindir}/sdlmess
-
-%files
-%defattr(0644,root,games,0755)
-%doc docs/*
-%attr(0755,root,games) %{_gamesbindir}/sdlmame*
-%attr(0755,root,games) %{_gamesbindir}/*-sdlmame
-%{_gamesdatadir}/sdlmame
-
-%files -n sdlmess
-%defattr(0644,root,games,0755)
-%doc docs/*
-%attr(0755,root,games) %{_gamesbindir}/sdlmess*
-%attr(0755,root,games) %{_gamesbindir}/*-sdlmess
-%{_gamesdatadir}/sdlmess
 

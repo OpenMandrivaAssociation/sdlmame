@@ -1,0 +1,40 @@
+diff -urN sdlmame-0.151/makefile sdlmame-0.151-patched/makefile
+--- sdlmame-0.151/makefile	2013-11-03 23:52:50.000000000 +1100
++++ sdlmame-0.151-patched/makefile	2013-11-08 14:50:10.841658469 +1100
+@@ -330,14 +330,14 @@
+ 
+ # compiler, linker and utilities
+ ifneq ($(TARGETOS),emscripten)
+-AR = @ar
+-CC = @gcc
+-LD = @g++
++AR = ar
++CC = gcc
++LD = g++
+ endif
+ MD = -mkdir$(EXE)
+-RM = @rm -f
+-OBJDUMP = @objdump
+-PYTHON = @python
++RM = rm -f
++OBJDUMP = objdump
++PYTHON = python
+ 
+ 
+ #-------------------------------------------------
+@@ -916,12 +916,12 @@
+ 
+ $(OBJ)/%.lh: $(SRC)/%.lay $(FILE2STR_TARGET)
+ 	@echo Converting $<...
+-	@$(FILE2STR) $< $@ layout_$(basename $(notdir $<))
++	$(FILE2STR) $< $@ layout_$(basename $(notdir $<))
+ 
+ $(OBJ)/%.fh: $(SRC)/%.png $(PNG2BDC_TARGET) $(FILE2STR_TARGET)
+ 	@echo Converting $<...
+-	@$(PNG2BDC) $< $(OBJ)/temp.bdc
+-	@$(FILE2STR) $(OBJ)/temp.bdc $@ font_$(basename $(notdir $<)) UINT8
++	$(PNG2BDC) $< $(OBJ)/temp.bdc
++	$(FILE2STR) $(OBJ)/temp.bdc $@ font_$(basename $(notdir $<)) UINT8
+ 
+ $(DRIVLISTOBJ): $(DRIVLISTSRC)
+ 	@echo Compiling $<...
