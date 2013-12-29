@@ -6,7 +6,7 @@
 Summary:	SDL MAME is an arcade emulator
 Name:		sdlmame
 Version:	0.149
-Release:	2
+Release:	3
 %define sversion	%(sed -r -e "s/\\.//" -e "s/(.*)u(.)/\\1/" <<<%{version})
 License:	Freeware
 Group:		Emulators
