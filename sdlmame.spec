@@ -5,7 +5,7 @@
 
 Summary:	SDL MAME is an arcade emulator
 Name:		sdlmame
-Version:	0.152
+Version:	0.153
 Release:	1
 %define sversion	%(sed -r -e "s/\\.//" -e "s/(.*)u(.)/\\1/" <<<%{version})
 License:	Freeware
@@ -28,6 +28,7 @@ Patch2:		sdlmame-0.147-no64suffix.patch
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(cairo)
 BuildRequires:	pkgconfig(expat)
+BuildRequires:	pkgconfig(flac)
 BuildRequires:	pkgconfig(fontconfig)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(gl)
@@ -105,8 +106,9 @@ tar xf %{SOURCE4}
 %make all TARGET=mame \
  PREFIX=sdl \
  NOWERROR=1 \
- BUILD_ZLIB= \
  BUILD_EXPAT= \
+ BUILD_FLAC= \
+ BUILD_ZLIB= \
  NO_USE_QTDEBUG=1 \
  NO_DEBUGGER=1 \
  OPT_FLAGS="%{optflags}"
@@ -114,8 +116,9 @@ tar xf %{SOURCE4}
 %make all TARGET=mess \
  PREFIX=sdl \
  NOWERROR=1 \
- BUILD_ZLIB= \
  BUILD_EXPAT= \
+ BUILD_FLAC= \
+ BUILD_ZLIB= \
  NO_USE_QTDEBUG=1 \
  NO_DEBUGGER=1 \
  OPT_FLAGS="%{optflags}"
