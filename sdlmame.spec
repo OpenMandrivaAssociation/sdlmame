@@ -25,6 +25,7 @@ Patch1:		sdlmame-0.150-dont-force-inline.patch
 # We don't want 64 bit binaries to have extra suffix
 Patch2:		sdlmame-0.147-no64suffix.patch
 
+BuildRequires:	dos2unix
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(cairo)
 BuildRequires:	pkgconfig(expat)
@@ -92,6 +93,8 @@ unzip -qq mame.zip
 tar xf %{SOURCE3}
 #files missing : arkwork, sysinfo.dat
 tar xf %{SOURCE4}
+
+find . -type f | xargs dos2unix
 
 %build
 #notes:
