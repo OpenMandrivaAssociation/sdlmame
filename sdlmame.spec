@@ -1,6 +1,7 @@
 # Better disable debug because with it's so greedy for resources
 # that linkage fails
-%define _enable_debug_packages %{nil}
+%define _enable_debug_packages 0
+%define debugcflags %nil
 %define debug_package %{nil}
 %define _disable_lto 1
 
