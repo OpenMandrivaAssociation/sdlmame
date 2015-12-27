@@ -117,9 +117,10 @@ tar xf %{SOURCE4}
  NO_DEBUGGER=1 \
  OPT_FLAGS="%{optflags}" \
  VERBOSE=1 \
- PYTHON_EXECUTABLE=python2
+ PYTHON_EXECUTABLE=python2 \
+ TOOLS=1
 
-%make all TARGET=mess \
+%make all SUBTARGET=mess \
  PREFIX=sdl \
  NOWERROR=1 \
  BUILD_EXPAT= \
@@ -129,12 +130,13 @@ tar xf %{SOURCE4}
  NO_DEBUGGER=1 \
  OPT_FLAGS="%{optflags}" \
  VERBOSE=1 \
- PYTHON_EXECUTABLE=python2
+ PYTHON_EXECUTABLE=python2 \
+ TOOLS=1
 
 %install
 install -d -m 755 %{buildroot}%{_gamesbindir}
-install -m 755 sdlmame %{buildroot}/%{_gamesbindir}/sdlmame.real
-install -m 755 sdlmess* %{buildroot}/%{_gamesbindir}/sdlmess.real
+install -m 755 mame64 %{buildroot}/%{_gamesbindir}/sdlmame.real
+install -m 755 mess64 %{buildroot}/%{_gamesbindir}/sdlmess.real
 
 #tools
 #useful to manage roms
