@@ -21,12 +21,6 @@ Source3:	sdlmame-extra.tar.bz2
 # Repack from git and 0.146 as these files are no longer in sources zip
 Source4:	sdlmess-extra-0.147.tar.bz2
 
-Patch0:		sdlmame-0.151-verbose-build.patch
-# x86_64 build fails due to extra optimizations
-Patch1:		sdlmame-0.150-dont-force-inline.patch
-# We don't want 64 bit binaries to have extra suffix
-Patch2:		sdlmame-0.147-no64suffix.patch
-
 BuildRequires:	dos2unix
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(cairo)
@@ -88,9 +82,6 @@ It uses SDL, and is based on MESS.
 %prep
 %setup -c -n %{name}-%{version} -q
 unzip -qq mame.zip
-#patch0 -p1
-#patch1 -p1
-#patch2 -p1
 
 #files missing : ui.bdf, keymaps
 tar xf %{SOURCE3}
@@ -135,7 +126,8 @@ tar xf %{SOURCE4}
 
 %install
 install -d -m 755 %{buildroot}%{_gamesbindir}
-install -m 755 mame{,64} %{buildroot}/%{_gamesbindir}/sdlmame.real
+[ -f mame ] && install -m 755 mame %{buildroot}/%{_gamesbindir}/sdlmame.real
+[ -f mame64 ] && install -m 755 mame64 %{buildroot}/%{_gamesbindir}/sdlmame.real
 install -m 755 mess* %{buildroot}/%{_gamesbindir}/sdlmess.real
 
 #tools
