@@ -135,8 +135,8 @@ tar xf %{SOURCE4}
 
 %install
 install -d -m 755 %{buildroot}%{_gamesbindir}
-install -m 755 mame64 %{buildroot}/%{_gamesbindir}/sdlmame.real
-install -m 755 mess64 %{buildroot}/%{_gamesbindir}/sdlmess.real
+install -m 755 mame* %{buildroot}/%{_gamesbindir}/sdlmame.real
+install -m 755 mess* %{buildroot}/%{_gamesbindir}/sdlmess.real
 
 #tools
 #useful to manage roms
