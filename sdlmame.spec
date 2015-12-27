@@ -45,6 +45,7 @@ BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xrender)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:  qt4-devel
 ExclusiveArch:	%{ix86} x86_64 ppc
 
 %description
