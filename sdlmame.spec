@@ -2,11 +2,12 @@
 # that linkage fails
 %define _enable_debug_packages %{nil}
 %define debug_package %{nil}
+%define _disable_lto 1
 
 Summary:	SDL MAME is an arcade emulator
 Name:		sdlmame
-Version:	0.153
-Release:	3
+Version:	0.168
+Release:	1
 %define sversion	%(sed -r -e "s/\\.//" -e "s/(.*)u(.)/\\1/" <<<%{version})
 License:	Freeware
 Group:		Emulators
@@ -38,8 +39,8 @@ BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(gconf-2.0)
 BuildRequires:	pkgconfig(pango)
 BuildRequires:	pkgconfig(pangocairo)
-BuildRequires:	pkgconfig(sdl)
-BuildRequires:	pkgconfig(SDL_ttf)
+BuildRequires:	pkgconfig(sdl2)
+BuildRequires:	pkgconfig(SDL2_ttf)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xrender)
@@ -85,16 +86,14 @@ It uses SDL, and is based on MESS.
 %prep
 %setup -c -n %{name}-%{version} -q
 unzip -qq mame.zip
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+#patch0 -p1
+#patch1 -p1
+#patch2 -p1
 
 #files missing : ui.bdf, keymaps
 tar xf %{SOURCE3}
 #files missing : arkwork, sysinfo.dat
 tar xf %{SOURCE4}
-
-find . -type f | xargs dos2unix
 
 %build
 #notes:
@@ -114,7 +113,9 @@ find . -type f | xargs dos2unix
  BUILD_ZLIB= \
  NO_USE_QTDEBUG=1 \
  NO_DEBUGGER=1 \
- OPT_FLAGS="%{optflags}"
+ OPT_FLAGS="%{optflags}" \
+ VERBOSE=1 \
+ PYTHON_EXECUTABLE=python2
 
 %make all TARGET=mess \
  PREFIX=sdl \
@@ -124,7 +125,9 @@ find . -type f | xargs dos2unix
  BUILD_ZLIB= \
  NO_USE_QTDEBUG=1 \
  NO_DEBUGGER=1 \
- OPT_FLAGS="%{optflags}"
+ OPT_FLAGS="%{optflags}" \
+ VERBOSE=1 \
+ PYTHON_EXECUTABLE=python2
 
 %install
 install -d -m 755 %{buildroot}%{_gamesbindir}
