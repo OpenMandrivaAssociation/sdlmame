@@ -30,8 +30,6 @@ BuildRequires:	pkgconfig(fontconfig)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glu)
-BuildRequires:	pkgconfig(gtk+-2.0)
-BuildRequires:	pkgconfig(gconf-2.0)
 BuildRequires:	pkgconfig(pango)
 BuildRequires:	pkgconfig(pangocairo)
 BuildRequires:	pkgconfig(sdl2)
@@ -40,7 +38,10 @@ BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xrender)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:  qt4-devel
+BuildRequires:  cmake(ECM)
+BuildRequires:	cmake(Qt5Core)
+BuildRequires:	cmake(Qt5Gui)
+BuildRequires:	cmake(Qt5Widgets)
 ExclusiveArch:	%{ix86} x86_64 ppc
 
 %description
