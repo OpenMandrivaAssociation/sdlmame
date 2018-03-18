@@ -7,14 +7,14 @@
 
 Summary:	SDL MAME is an arcade emulator
 Name:		sdlmame
-Version:	0.168
+Version:	0.195
 Release:	1
 %define sversion	%(sed -r -e "s/\\.//" -e "s/(.*)u(.)/\\1/" <<<%{version})
 License:	Freeware
 Group:		Emulators
 Url:		http://mamedev.org/
 #http://mamedev.org/downloader.php?&file=mame%{sversion}s.zip
-Source0:	mame%{sversion}s.zip
+Source0:	mame%{sversion}.tar.gz
 Source1:	sdlmame-wrapper
 Source2:	sdlmess-wrapper
 Source3:	sdlmame-extra.tar.bz2
@@ -61,27 +61,8 @@ other package named sdlmame-extra-data.
 
 #----------------------------------------------------------------------------
 
-%package -n sdlmess
-Summary:	SDL MESS emulates a large variety of different systems
-Group:		Emulators
-
-%description -n sdlmess
-SDL MESS is a free emulator which emulates a large variety of different
-systems (computers and home entertainment systems).
-It uses SDL, and is based on MESS.
-
-%files -n sdlmess
-%defattr(0644,root,games,0755)
-%doc docs/*
-%attr(0755,root,games) %{_gamesbindir}/sdlmess*
-%attr(0755,root,games) %{_gamesbindir}/*-sdlmess
-%{_gamesdatadir}/sdlmess
-
-#----------------------------------------------------------------------------
-
 %prep
-%setup -c -n %{name}-%{version} -q
-unzip -qq mame.zip
+%setup -qn mame-mame0195 
 
 #files missing : ui.bdf, keymaps
 tar xf %{SOURCE3}
@@ -111,64 +92,47 @@ tar xf %{SOURCE4}
  PYTHON_EXECUTABLE=python2 \
  TOOLS=1
 
-%make all SUBTARGET=mess \
- PREFIX=sdl \
- NOWERROR=1 \
- BUILD_EXPAT= \
- BUILD_FLAC= \
- BUILD_ZLIB= \
- NO_USE_QTDEBUG=1 \
- NO_DEBUGGER=1 \
- OPT_FLAGS="%{optflags}" \
- VERBOSE=1 \
- PYTHON_EXECUTABLE=python2 \
- TOOLS=1
-
 %install
 install -d -m 755 %{buildroot}%{_gamesbindir}
 [ -f mame ] && install -m 755 mame %{buildroot}/%{_gamesbindir}/sdlmame.real
 [ -f mame64 ] && install -m 755 mame64 %{buildroot}/%{_gamesbindir}/sdlmame.real
-install -m 755 mess* %{buildroot}/%{_gamesbindir}/sdlmess.real
 
 #tools
 #useful to manage roms
 install -m 755 chdman %{buildroot}%{_gamesbindir}/chdman-sdlmame
-install -m 755 chdman %{buildroot}%{_gamesbindir}/chdman-sdlmess
 install -m 755 romcmp %{buildroot}%{_gamesbindir}/romcmp-sdlmame
-install -m 755 romcmp %{buildroot}%{_gamesbindir}/romcmp-sdlmess
 #useful to create a new keymap
-install -m 755 testkeys %{buildroot}%{_gamesbindir}/testkeys-sdlmame
-install -m 755 testkeys %{buildroot}%{_gamesbindir}/testkeys-sdlmess
+#install -m 755 testkeys %{buildroot}%{_gamesbindir}/testkeys-sdlmame
 #other tools built:
 #jedutils, makemeta, regrep, srcclean
 
 #"support files" moved to sdlmame-extra-data
 #but the directory is still owned by this package
 install -d -m 755 %{buildroot}%{_gamesdatadir}/sdlmame
-install -d -m 755 %{buildroot}%{_gamesdatadir}/sdlmess
 
 #ui font
 install -m 644 ui.bdf %{buildroot}/%{_gamesdatadir}/sdlmame/
-install -m 644 ui.bdf %{buildroot}/%{_gamesdatadir}/sdlmess/
 
 #keymaps
 install -d -m 755 %{buildroot}%{_gamesdatadir}/sdlmame/keymaps
 install -m 644 keymaps/* %{buildroot}/%{_gamesdatadir}/sdlmame/keymaps/
-install -d -m 755 %{buildroot}%{_gamesdatadir}/sdlmess/keymaps
-install -m 644 keymaps/* %{buildroot}/%{_gamesdatadir}/sdlmess/keymaps/
 
 #various directories and files
-install -d -m 755 %{buildroot}%{_gamesdatadir}/sdlmess/artwork
-install -m 644 artwork/* %{buildroot}%{_gamesdatadir}/sdlmess/artwork/
 install -d -m 755 %{buildroot}%{_gamesdatadir}/sdlmame/hash
 install -m 644 hash/* %{buildroot}%{_gamesdatadir}/sdlmame/hash/
-install -d -m 755 %{buildroot}%{_gamesdatadir}/sdlmess/hash
-install -m 644 hash/* %{buildroot}%{_gamesdatadir}/sdlmess/hash/
+
+pushd artwork
+    find -type d -exec install -d $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}/artwork/{} \;
+    find -type f -exec install -pm 644 {} $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}/artwork/{} \;
+popd
+pushd bgfx
+    find -type d -exec install -d $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}/bgfx/{} \;
+    find -type f -exec install -pm 644 {} $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}/bgfx/{} \;
+popd
 
 #sysinfo.dat
-install -m 644 sysinfo.dat %{buildroot}%{_gamesdatadir}/sdlmess/
+install -m 644 sysinfo.dat %{buildroot}%{_gamesdatadir}/%{name}/
 
 #install wrapper
 install -m 755 %{SOURCE1} %{buildroot}%{_gamesbindir}/sdlmame
-install -m 755 %{SOURCE2} %{buildroot}%{_gamesbindir}/sdlmess
 
