@@ -7,19 +7,19 @@
 
 Summary:	SDL MAME is an arcade emulator
 Name:		sdlmame
-Version:	0.195
+Version:	0.259
 Release:	1
 %define sversion	%(sed -r -e "s/\\.//" -e "s/(.*)u(.)/\\1/" <<<%{version})
 License:	Freeware
 Group:		Emulators
 Url:		http://mamedev.org/
 #http://mamedev.org/downloader.php?&file=mame%{sversion}s.zip
-Source0:	mame%{sversion}.tar.gz
+Source0:	https://github.com/mamedev/mame/archive/refs/tags/mame%{sversion}.tar.gz
 Source1:	sdlmame-wrapper
 Source2:	sdlmess-wrapper
-Source3:	sdlmame-extra.tar.bz2
+#Source3:	sdlmame-extra.tar.bz2
 # Repack from git and 0.146 as these files are no longer in sources zip
-Source4:	sdlmess-extra-0.147.tar.bz2
+#Source4:	sdlmess-extra-0.147.tar.bz2
 
 BuildRequires:	dos2unix
 BuildRequires:	pkgconfig(alsa)
@@ -63,12 +63,12 @@ other package named sdlmame-extra-data.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -qn mame-mame0195 
+%setup -qn mame-mame%{sversion}
 
 #files missing : ui.bdf, keymaps
-tar xf %{SOURCE3}
+#tar xf %{SOURCE3}
 #files missing : arkwork, sysinfo.dat
-tar xf %{SOURCE4}
+#tar xf %{SOURCE4}
 
 %build
 #notes:
@@ -90,7 +90,7 @@ tar xf %{SOURCE4}
  NO_DEBUGGER=1 \
  OPT_FLAGS="%{optflags}" \
  VERBOSE=1 \
- PYTHON_EXECUTABLE=python2 \
+ PYTHON_EXECUTABLE=python \
  TOOLS=1
 
 %install
@@ -112,7 +112,7 @@ install -m 755 romcmp %{buildroot}%{_gamesbindir}/romcmp-sdlmame
 install -d -m 755 %{buildroot}%{_gamesdatadir}/sdlmame
 
 #ui font
-install -m 644 ui.bdf %{buildroot}/%{_gamesdatadir}/sdlmame/
+install -m 644 uismall.bdf %{buildroot}/%{_gamesdatadir}/sdlmame/
 
 #keymaps
 install -d -m 755 %{buildroot}%{_gamesdatadir}/sdlmame/keymaps
@@ -130,9 +130,6 @@ pushd bgfx
     find -type d -exec install -d $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}/bgfx/{} \;
     find -type f -exec install -pm 644 {} $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}/bgfx/{} \;
 popd
-
-#sysinfo.dat
-install -m 644 sysinfo.dat %{buildroot}%{_gamesdatadir}/%{name}/
 
 #install wrapper
 install -m 755 %{SOURCE1} %{buildroot}%{_gamesbindir}/sdlmame
