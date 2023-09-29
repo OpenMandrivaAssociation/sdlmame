@@ -42,7 +42,6 @@ BuildRequires:  cmake(ECM)
 BuildRequires:	cmake(Qt5Core)
 BuildRequires:	cmake(Qt5Gui)
 BuildRequires:	cmake(Qt5Widgets)
-ExclusiveArch:	%{ix86} x86_64 ppc
 
 %description
 SDL MAME is an arcade emulator using SDL, and based on the Multiple Arcade
