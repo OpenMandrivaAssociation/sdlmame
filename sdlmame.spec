@@ -12,7 +12,7 @@ Release:	1
 %define sversion	%(sed -r -e "s/\\.//" -e "s/(.*)u(.)/\\1/" <<<%{version})
 License:	Freeware
 Group:		Emulators
-Url:		http://mamedev.org/
+Url:		https://mamedev.org/
 #http://mamedev.org/downloader.php?&file=mame%{sversion}s.zip
 Source0:	https://github.com/mamedev/mame/archive/refs/tags/mame%{sversion}.tar.gz
 Source1:	sdlmame-wrapper
